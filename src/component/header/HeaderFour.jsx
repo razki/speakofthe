@@ -43,7 +43,7 @@ class HeaderFour extends Component{
         } else if(logo === 'symbol-light'){
             logoUrl = <img src="/assets/images/logo/logo-symbol-light.png" alt="SPEAKOFTHE" />;
         }else{
-            logoUrl = <img src="/assets/images/logo/logo.png" alt="SPEAKOFTHE" />;
+            logoUrl = <img src="/assets/images/logo/speakofthelogo.png" alt="SPEAKOFTHE" />;
         }
         
         return(

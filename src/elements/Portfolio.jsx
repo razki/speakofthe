@@ -48,7 +48,7 @@ class Portfolio extends Component{
         return(
             <React.Fragment>
                 <PageHelmet pageTitle='Portfolio' />
-                <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+                <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
                 {/* Start Breadcrump Area */}
                 <Breadcrumb title={'Portfolio'}   />
                 {/* End Breadcrump Area */}

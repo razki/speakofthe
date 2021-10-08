@@ -13,7 +13,7 @@ const ContactForm = () => {
             <PageHelmet pageTitle='Contact Form' />
 
             {/* Start Header Area  */}
-            <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+            <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
             {/* End Header Area  */}
             
             {/* Start Breadcrump Area */}

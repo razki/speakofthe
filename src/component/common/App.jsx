@@ -9,7 +9,7 @@ class App extends Component{
     render(){
         return(
             <Fragment>
-                <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+                <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
                 {this.props.children}
 
                  {/* Start Back To Top */}

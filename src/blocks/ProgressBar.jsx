@@ -15,7 +15,7 @@ const ProgressBar = () => {
             <PageHelmet pageTitle='Progress Bar' />
 
             {/* Start Header Area  */}
-            <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+            <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
             {/* End Header Area  */}
             
             {/* Start Breadcrump Area */}

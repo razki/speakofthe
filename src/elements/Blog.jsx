@@ -14,7 +14,7 @@ class Blog extends Component{
             <React.Fragment>
                 <PageHelmet pageTitle='Blog' />
 
-                <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+                <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
                 {/* Start Breadcrump Area */}
                 <Breadcrumb title={'Blog List'}   />
                 {/* End Breadcrump Area */}

@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import {FaTwitter ,FaInstagram ,FaFacebookF , FaLinkedinIn} from "react-icons/fa";
+import {FaLinkedinIn} from "react-icons/fa";
 
 const SocialShare = [
-    {Social: <FaFacebookF /> , link: 'https://www.facebook.com/'},
-    {Social: <FaLinkedinIn /> , link: 'https://www.linkedin.com/'},
-    {Social: <FaInstagram /> , link: 'https://www.instagram.com/'},
-    {Social: <FaTwitter /> , link: 'https://twitter.com/'},
+    {Social: <FaLinkedinIn /> , link: 'https://www.linkedin.com/company/speakofthe'},
 ]
 
 class Footer extends Component{
@@ -34,8 +31,6 @@ class Footer extends Component{
                                             <div className="footer-link">
                                                 <h4>Quick Link</h4>
                                                 <ul className="ft-link">
-                                                    <li><a href="/portfolio">Work</a></li>
-                                                    <li><a href="/about">About</a></li>
                                                     <li><a href="/contact">Let's Talk</a></li>
                                                 </ul>
                                             </div>
@@ -46,8 +41,7 @@ class Footer extends Component{
                                             <div className="footer-link">
                                                 <h4>Say Hello</h4>
                                                 <ul className="ft-link">
-                                                    <li><a href="mailto:admin@example.com">admin@example.com</a></li>
-                                                    <li><a href="mailto:hr@example.com">hr@example.com</a></li>
+                                                    <li><a href="mailto:ryan@speakofthe.com">ryan@speakofthe.com</a></li>
                                                 </ul>
 
                                                 <div className="social-share-inner">

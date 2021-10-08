@@ -26,7 +26,7 @@ class ServiceDetails extends Component{
                 <PageHelmet pageTitle='Service Details' />
                 {/* End Pagehelmet  */}
 
-                <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+                <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
 
                 {/* Start Breadcrump Area */}
                 <div className="rn-page-title-area pt--120 pb--190 bg_image bg_image--5"  data-black-overlay="5">

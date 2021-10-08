@@ -45,7 +45,7 @@ class Header extends Component{
         }else if(logo === 'symbol-light'){
             logoUrl = <img src="/assets/images/logo/logo-symbol-light.png" alt="Software Consultancy" />;
         }else{
-            logoUrl = <img src="/assets/images/logo/logo.png" alt="Software Consultancy" />;
+            logoUrl = <img src="/assets/images/logo/speakofthelogo.png" alt="Software Consultancy" />;
         }
 
         
@@ -64,13 +64,6 @@ class Header extends Component{
                             <ul className="mainmenu">
                                 <li><Link to="/">Home</Link>
                                 </li>
-                                <li className="has-droupdown"><Link to="/service" >Service</Link>
-                                    <ul className="submenu">
-                                        <li><Link to="/service">Service</Link></li>
-                                        <li><Link to="/service-details">Service Details</Link></li>
-                                    </ul>
-                                </li>
-                                <li><Link to="/about" >About</Link></li>
                                 <li><Link to="/contact" >Contact</Link></li>
                             </ul>
                         </nav>

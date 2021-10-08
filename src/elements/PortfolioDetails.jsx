@@ -30,7 +30,7 @@ class PortfolioDetails extends Component{
             <React.Fragment>
                 <PageHelmet pageTitle='Portfolio Details' />
 
-                <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+                <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
                 
                 {/* Start Breadcrump Area */}
                 <div className="rn-page-title-area pt--120 pb--190 bg_image bg_image--4"  data-black-overlay="7">

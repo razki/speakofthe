@@ -44,7 +44,7 @@ class Service extends Component{
         return(
             <React.Fragment>
                 <PageHelmet pageTitle='Service' />
-                <Header headertransparent="header--transparent" colorblack="color--black" logoname="logo.png" />
+                <Header headertransparent="header--transparent" colorblack="color--black" logoname="speakofthelogo.png" />
 
                 {/* Start Breadcrump Area */}
                 <Breadcrumb title={'Service'}   />

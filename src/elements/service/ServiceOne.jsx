@@ -2,19 +2,19 @@ import React, { Component } from "react";
 
 const ServiceList = [
     {
-        icon: '01',
-        title: 'Business Stratagy',
-        description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered.'
+        icon: '03',
+        title: 'Discovery & Design',
+        description: 'Undertaking greenfield projects, existing digital transformation work or speculative ideas. Cloud first architecture and design input.'
     },
     {
         icon: '02',
-        title: 'Website Development',
-        description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered.'
+        title: 'Development & Stability',
+        description: 'Open-source technology and cloud infrastructure empowering robust and scalable applications.'
     },
     {
-        icon: '03',
-        title: 'Marketing & Reporting',
-        description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered.'
+        icon: '01',
+        title: 'Delivery & Support Handover',
+        description: 'Intuitive design and software, coupled with tailored training and continuous support packages.'
     },
 ]
 

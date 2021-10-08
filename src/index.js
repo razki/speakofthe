@@ -34,16 +34,16 @@ class Root extends Component{
                         <Route exact path={`${process.env.PUBLIC_URL}/`} component={DarkMain}/>
 
                         {/* Element Layot */}
-                        <Route exact path={`${process.env.PUBLIC_URL}/service`} component={Service}/>
-                        <Route exact path={`${process.env.PUBLIC_URL}/service-details`} component={ServiceDetails}/>
+                        {/* <Route exact path={`${process.env.PUBLIC_URL}/service`} component={Service}/>
+                        <Route exact path={`${process.env.PUBLIC_URL}/service-details`} component={ServiceDetails}/> */}
                         <Route exact path={`${process.env.PUBLIC_URL}/contact`} component={Contact}/>
-                        <Route exact path={`${process.env.PUBLIC_URL}/about`} component={About}/>
+                        {/* <Route exact path={`${process.env.PUBLIC_URL}/about`} component={About}/>
                         <Route exact path={`${process.env.PUBLIC_URL}/portfolio-details`} component={PortfolioDetails}/>
                         <Route exact path={`${process.env.PUBLIC_URL}/blog`} component={Blog}/>
-                        <Route exact path={`${process.env.PUBLIC_URL}/blog-details`} component={BlogDetails}/>
+                        <Route exact path={`${process.env.PUBLIC_URL}/blog-details`} component={BlogDetails}/> */}
 
                         {/* Blocks Elements  */}
-                        <Route exact path={`${process.env.PUBLIC_URL}/team`} component={Team}/>
+                        {/* <Route exact path={`${process.env.PUBLIC_URL}/team`} component={Team}/> */}
 
                         <Route path={`${process.env.PUBLIC_URL}/404`} component={error404}/>
                         <Route component={error404}/>
