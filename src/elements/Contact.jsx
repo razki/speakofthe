@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import PageHelmet from "../component/common/Helmet";
 import { FiHeadphones , FiMail , FiMapPin } from "react-icons/fi";
-import GoogleMapReact from 'google-map-react';
 import ContactTwo from "../elements/contact/ContactTwo";
-import BrandTwo from "../elements/BrandTwo";
 import ScrollToTop from 'react-scroll-up';
 import { FiChevronUp } from "react-icons/fi";
 import Header from "../component/header/Header";
 import Footer from "../component/footer/Footer";
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class Contact extends Component{
     static defaultProps = {
@@ -33,8 +29,8 @@ class Contact extends Component{
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="rn-page-title text-center pt--100">
-                                    <h2 className="title theme-gradient">Cntact With Us</h2>
-                                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. </p>
+                                    <h2 className="title theme-gradient">Connect with us</h2>
+                                    <p>If you have any queries, please do get in touch.</p>
                                 </div>
                             </div>
                         </div>
@@ -55,9 +51,8 @@ class Contact extends Component{
                                         <FiHeadphones />
                                     </div>
                                     <div className="inner">
-                                        <h4 className="title">Contact With Phone Number</h4>
-                                        <p><a href="tel:+057 254 365 456">+057 254 365 456</a></p>
-                                        <p><a href="tel:+856 325 652 984">+856 325 652 984</a></p>
+                                        <h4 className="title">Via Linkedin</h4>
+                                        <p><a href="https://www.linkedin.com/company/speakofthe">Company Linkedin</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -71,8 +66,7 @@ class Contact extends Component{
                                     </div>
                                     <div className="inner">
                                         <h4 className="title">Email Address</h4>
-                                        <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
-                                        <p><a href="mailto:example@gmail.com">example@gmail.com</a></p>
+                                        <p><a href="mailto:ryan@speakofthe.com">ryan@speakofthe.com</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +80,7 @@ class Contact extends Component{
                                     </div>
                                     <div className="inner">
                                         <h4 className="title">Location</h4>
-                                        <p>5678 Bangla Main Road, cities 580 <br /> GBnagla, example 54786</p>
+                                        <p>West Yorkshire<br /> Worldwide</p>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +98,7 @@ class Contact extends Component{
                 {/* End Contact Page Area  */}
 
                 {/* Start Contact Map  */}
-                <div className="rn-contact-map-area position-relative">
+                {/* <div className="rn-contact-map-area position-relative">
                     <div style={{ height: '650px', width: '100%' }}>
                         <GoogleMapReact
                         defaultCenter={this.props.center}
@@ -117,12 +111,12 @@ class Contact extends Component{
                         />
                         </GoogleMapReact>
                     </div>
-                </div>
+                </div> */}
                 {/* End Contact Map  */}
                 
 
                 {/* Start Brand Area */}
-                <div className="rn-brand-area brand-separation bg_color--5 ptb--120">
+                {/* <div className="rn-brand-area brand-separation bg_color--5 ptb--120">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
@@ -130,7 +124,7 @@ class Contact extends Component{
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 {/* End Brand Area */}
 
                 {/* Start Back To Top */}
