@@ -1,0 +1,6 @@
+aws_profile = "252240171704"
+aws_region  = "eu-central-1"
+log_level   = "debug"
+environment = "prod"
+domain_name = "speakofthe.com"
+zone_id     = "Z0268509Q533ZL0036SD"

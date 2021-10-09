@@ -2,7 +2,6 @@
   "name": "speakofthe",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
   "basename": "/",
   "dependencies": {
     "@babel/core": "7.4.3",
@@ -88,7 +87,8 @@
   "scripts": {
     "start": "nodemon scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "lint:es": "yarn run eslint --ext .js,.jsx . --max-warnings=0 --ignore-path .gitignore --fix"
   },
   "eslintConfig": {
     "extends": "react-app"

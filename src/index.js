@@ -18,10 +18,10 @@ class Root extends Component{
             <BrowserRouter basename={'/'}>
                 <PageScrollTop>
                     <Switch>
-                        <Route exact path={`${process.env.PUBLIC_URL}/`} component={DarkMain}/>
-                        <Route exact path={`${process.env.PUBLIC_URL}/careers`} component={Service}/>
-                        <Route exact path={`${process.env.PUBLIC_URL}/contact`} component={Contact}/>
-                        <Route path={`${process.env.PUBLIC_URL}/404`} component={error404}/>
+                        <Route exact path={"/"} component={DarkMain}/>
+                        <Route exact path={"/careers"} component={Service}/>
+                        <Route exact path={"/contact"} component={Contact}/>
+                        <Route path={"/404"} component={error404}/>
                         <Route component={error404}/>
                     </Switch>
                 </PageScrollTop>
