@@ -80,7 +80,7 @@ class Contact extends Component{
                                     </div>
                                     <div className="inner">
                                         <h4 className="title">Location</h4>
-                                        <p>West Yorkshire<br /> Worldwide</p>
+                                        <p>West Yorkshire</p>
                                     </div>
                                 </div>
                             </div>
