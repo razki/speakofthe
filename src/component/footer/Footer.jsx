@@ -57,7 +57,7 @@ class Footer extends Component{
 
                                         <div className="col-lg-12">
                                             <div className="copyright-text">
-                                                <p>SPEAKOFTHE LTD | Company No: 12426635 | VAT No: TBD</p>
+                                                <p>SPEAK OF THE LTD | Company No: 12426635 | VAT No: 392725275</p>
                                             </div>
                                         </div>
                                     </div>
