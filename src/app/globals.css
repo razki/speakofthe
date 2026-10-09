@@ -47,6 +47,8 @@
   --spacing-glyph-bleed: 0.08em;
   /* Align wordmark metadata to the E's ink edge, inside its font sidebearing. */
   --spacing-wordmark-edge: calc(var(--text-wordmark) * 0.05);
+  /* Lift metadata into Montserrat's empty descender space below the capitals. */
+  --spacing-wordmark-meta-lift: calc(var(--text-wordmark) * 0.16);
   /* Vexon ticker: equal visible-edge gaps, retaining optical logo sizes. */
   --spacing-client-gap: clamp(36px, 5vw, 80px);
   --spacing-client-height: 80px;

@@ -30,7 +30,7 @@ export const CortexWordmark = ({ letters, play, location, established }: CortexW
         {letter.char}
       </Spring>
     ))}
-    <p className="col-start-1 -col-end-2 mt-2 flex flex-wrap justify-end gap-x-6 gap-y-1 pr-wordmark-edge text-right font-sans text-label text-hero-muted">
+    <p className="relative -top-wordmark-meta-lift col-start-1 -col-end-2 mt-2 flex flex-wrap justify-end gap-x-6 gap-y-1 pr-wordmark-edge text-right font-sans text-label text-hero-muted">
       <span>{location}</span>
       <span>{established}</span>
     </p>

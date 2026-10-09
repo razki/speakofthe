@@ -8,6 +8,15 @@ updated: 2026-10-09
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-10-09 - Correct and tighten wordmark metadata
+
+- Changed the hero date to Est. 2021, matching the About introduction.
+- Moved the location/year line closer beneath the company name using a
+  font-relative wordmark-meta-lift spacing token. Its right edge remains
+  aligned with the E, and the existing spring reveal is unchanged.
+- Validation: lint passes; desktop 1895x1244 and phone 390x844 previews retain
+  readable metadata, no horizontal overflow and no browser warnings/errors.
+
 ## 2026-10-09 - Preserve existing S3 encryption during cutover
 
 - The production retry authenticated successfully, created the Next runtime and

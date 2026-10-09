@@ -81,7 +81,7 @@ export interface HomeContent {
 export const homeContent: HomeContent = {
   brand: "SPEAKOFTHE.",
   location: "North Yorkshire, UK",
-  established: "Est. 2020",
+  established: "Est. 2021",
   preloader: {
     wordmark: "SPEAKOFTHE",
     loadingLabel: "Loading SPEAKOFTHE",
