@@ -8,6 +8,17 @@ updated: 2026-10-09
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-10-09 - Reveal metadata after the wordmark
+
+- The location and year now fade in together once the final wordmark letter has
+  settled. A completion spring shares the last letter's stagger and duration;
+  unlike a wall-clock timeout, it stays in sequence after a suspended frame.
+- Preserved the close spacing, E alignment, reduced-motion handling, static robot
+  rendering and loader-free client navigation. The protected engine is unchanged.
+- Validation: lint and production build passed. Browser traces showed zero early
+  metadata frames on hard entry and Careers return; reduced motion showed the
+  completed line immediately, and crawler HTML retained opacity 1.
+
 ## 2026-10-09 - Correct and tighten wordmark metadata
 
 - Changed the hero date to Est. 2021, matching the About introduction.
