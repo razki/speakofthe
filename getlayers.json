@@ -1,0 +1,30 @@
+{
+  "project": "SPEAKOFTHE.",
+  "template": "cortex",
+  "styleId": "cortex-style",
+  "paletteId": "noir-vermillion",
+  "fontId": "montserrat",
+  "bodyFontId": "general-sans",
+  "reference": "https://speakofthe.com/",
+  "ownerCorrections": { "established": 2021, "location": "North Yorkshire" },
+  "direction": "Dark red, minimalist, Montserrat Black display with General Sans body. Careers-only header at the right, no promotional CTAs or decorative dividers; About shares the page background.",
+  "overrides": {
+    "scene": "Monochromatic oxblood. Owner-requested right-facing arc remaps the filament centerline through configurable viewport anchors, with a gentler portrait bow. Original per-filament flow, texture, cursor response and renderer limits remain.",
+    "contentBackground": "Bare Neon Ribbon Waves, local video and poster, tinted with brand red through CSS compositing at 22% opacity. Original motion/composition retained; playback pauses off-screen/hidden and reduced motion/robots use the poster.",
+    "careersBackground": "Bare Coral Light Arc, local video and poster, tinted with brand red through CSS compositing at 20% opacity. Original motion/composition retained; replaces corner glows. Playback pauses off-screen/hidden and reduced motion uses the poster."
+  },
+  "sections": [
+    { "role": "hero", "composition": "cortex-hero", "scene": "prism-streaks" },
+    { "role": "features", "composition": "artist-process", "background": "neon-ribbon-waves", "content": "Original three services; background continues through the footer" },
+    { "role": "marquee", "composition": "vexon-marquee", "adaptation": "Single seamless spring-driven logo row, no divider, off-white official assets; alpha-bound masks preserve optical sizing with equal gaps between visible edges, including the loop seam. Static wrap for reduced motion and robots.", "content": "Eight owner-supplied companies, between Services and About" },
+    { "role": "editorial", "composition": "negantropy-entropy", "adaptation": "Compact 5|7 split", "content": "Original consultancy introduction" },
+    { "role": "footer", "composition": "marcus-vane-contact-footer", "content": "Verified contact, company and careers links" }
+  ],
+  "pages": {
+    "careers": {
+      "background": "coral-light-arc",
+      "preview": "https://www.getlayers.ai/?layer=coral-light-arc",
+      "content": "Existing no-vacancies page and return-home navigation"
+    }
+  }
+}

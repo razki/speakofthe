@@ -1,0 +1,5 @@
+region         = "eu-central-1"
+bucket         = "252240171704-tfstate"
+key            = "runtime/speakofthe"
+dynamodb_table = "252240171704-tfstate-lock"
+encrypt        = true

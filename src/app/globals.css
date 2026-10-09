@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  /* SPEAKOFTHE — GetLayers Noir Vermillion, reduced to oxblood and warm ink. */
+  --background: #0d0506;
+  --foreground: #f7eedf;
+  --brand: #8e1617;
+  --hero-ink: #f7eedf;
+  --hero-muted: #c8b5ae;
+  --hero-bg: #0d0506;
+  --hero-surface: #18090b;
+  --hero-scrim-deep: #240709;
+  --hero-divider: rgb(247 238 223 / 20%);
+  --hero-wordmark-hi: #f7eedf;
+  --hero-wordmark-lo: #bfa4a0;
+  --hero-lead-fade: #c8b5ae;
+  --preloader-bg: #f7eedf;
+  --ribbon-opacity: 0.22;
+  --ribbon-filter: grayscale(1) brightness(1.8);
+  --careers-arc-opacity: 0.2;
+  --careers-arc-filter: grayscale(1) brightness(1.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-hero-ink: var(--hero-ink);
+  --color-hero-muted: var(--hero-muted);
+  --color-hero-bg: var(--hero-bg);
+  --color-hero-surface: var(--hero-surface);
+  --color-hero-scrim-deep: var(--hero-scrim-deep);
+  --color-hero-divider: var(--hero-divider);
+  --color-preloader-bg: var(--preloader-bg);
+  --font-sans: var(--font-general-sans), Arial, sans-serif;
+  --font-display: var(--font-montserrat), Arial, sans-serif;
+}
+
+@theme {
+  /* Wordmark loading curtain: stable brand-sized mask and a compact counter. */
+  --z-index-preloader: 1000;
+  --text-preloader-wordmark: clamp(30px, 11.4vw, 190px);
+  --spacing-page-gutter: clamp(24px, 4vw, 72px);
+  --spacing-section-space: clamp(80px, 10vw, 160px);
+  --spacing-hero-space: clamp(64px, 9vh, 130px);
+  --spacing-wordmark-space: clamp(24px, 3.2vw, 52px);
+  --spacing-glyph-bleed: 0.08em;
+  /* Align wordmark metadata to the E's ink edge, inside its font sidebearing. */
+  --spacing-wordmark-edge: calc(var(--text-wordmark) * 0.05);
+  /* Vexon ticker: equal visible-edge gaps, retaining optical logo sizes. */
+  --spacing-client-gap: clamp(36px, 5vw, 80px);
+  --spacing-client-height: 80px;
+  --spacing-client-wide: clamp(160px, 14vw, 208px);
+  --spacing-client-compact: 136px;
+  --spacing-client-square: 56px;
+  --spacing-client-mark-height: 64px;
+  --spacing-client-fade: clamp(24px, 5vw, 80px);
+  --spacing-hero: max(740px, 100svh);
+  --container-site-width: 1600px;
+  --text-logo: 18px;
+  --text-label: 12px;
+  --text-nav: 13px;
+  --text-body: 16px;
+  /* Owner annotations: compact brand typography for supporting paragraphs. */
+  --text-about-intro: clamp(16px, 1.3vw, 20px);
+  --text-hero-title: clamp(30px, 3.2vw, 58px);
+  --text-section-title: clamp(32px, 4vw, 64px);
+  --text-service-title: clamp(22px, 2.2vw, 34px);
+  --text-contact-title: clamp(44px, 7vw, 112px);
+  --text-wordmark: calc((100vw - var(--spacing-page-gutter) * 2) / 7.7);
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+    scroll-padding-top: 2rem;
+  }
+  body {
+    min-height: 100vh;
+    width: 100%;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-general-sans), Arial, sans-serif;
+  }
+  ::selection { background: var(--brand); color: var(--hero-ink); }
+  :focus-visible { outline: 2px solid var(--hero-ink); outline-offset: 5px; }
+}
+
+@utility mask-client-edges {
+  mask-image: linear-gradient(to right, transparent, black var(--spacing-client-fade), black calc(100% - var(--spacing-client-fade)), transparent);
+}
+
+@layer components {
+  /* Bare Coral Light Arc: tint the original footage within an isolated layer. */
+  .careers-arc-scene {
+    isolation: isolate;
+    background: var(--brand);
+    opacity: var(--careers-arc-opacity);
+  }
+  .careers-arc-media {
+    filter: var(--careers-arc-filter);
+    mix-blend-mode: multiply;
+  }
+  /* Original ribbon motion, tinted with the existing red via compositing. */
+  .ribbon-scene {
+    isolation: isolate;
+    background: var(--brand);
+    opacity: var(--ribbon-opacity);
+    mask-image: linear-gradient(to bottom, transparent, black var(--spacing-section-space), black calc(100% - var(--spacing-section-space)), transparent);
+  }
+  .ribbon-media {
+    filter: var(--ribbon-filter);
+    mix-blend-mode: multiply;
+  }
+  /* The single-element gradient preserves the template's wordmark treatment. */
+  .cortex-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .cortex-letter-a {
+    background-image: linear-gradient(to bottom, var(--hero-wordmark-hi) 20%, var(--hero-wordmark-lo) 100%);
+  }
+  .cortex-letter-b {
+    background-image: linear-gradient(to top, var(--hero-wordmark-hi), var(--hero-wordmark-lo));
+  }
+  .cortex-lead {
+    background-image: linear-gradient(to right, var(--hero-ink), var(--hero-lead-fade));
+  }
+  .cortex-scrim {
+    background: linear-gradient(to bottom, rgb(13 5 6 / 25%), rgb(13 5 6 / 8%) 30%, var(--hero-bg) 100%);
+  }
+}
+
+/* Keep the server-rendered consent banner and the optimized robot gate. */
+html[data-consent] [data-cookie-banner],
+html:has(meta[name="x-robot-view"]) [data-cookie-banner] { display: none; }

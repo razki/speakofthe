@@ -1,54 +1,167 @@
-name: Deploy
+name: Validate and deploy website
 
 on:
+  pull_request:
   push:
-    branches:
-      - 'master'
+    branches: [master, 'codex/**']
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Validate only, prepare/test AWS candidate, or promote production
+        type: choice
+        options: [validate, runtime, production]
+        default: validate
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: false
 
 env:
-  NODE_VERSION: 14.x
-  TERRAFORM_VERSION: 0.14.10
+  NODE_VERSION: '22'
+  TERRAFORM_VERSION: '1.13.5'
+  NEXT_PUBLIC_SITE_URL: https://speakofthe.com
+  NEXT_TELEMETRY_DISABLED: '1'
 
 jobs:
-  deployInf:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - uses: hashicorp/setup-terraform@v1
+          package-manager-cache: false
+      - run: npm install --global yarn@1.22.22
+      - run: yarn install --frozen-lockfile --non-interactive
+      - run: yarn lint
+      - run: yarn test:deployment
+      - run: yarn build
+      - run: yarn package:lambda
+      - name: Smoke-test the packaged standalone server
+        env:
+          CONTACT_EMAIL: smoke@example.invalid
+          SMOKE_BASE_URL: http://localhost:8000
+          SMOKE_ORIGIN: https://speakofthe.com
+          SMOKE_CANONICAL: https://speakofthe.com
+        run: |
+          PORT=8000 HOSTNAME=127.0.0.1 node .deploy/function/server.js > .deploy/smoke-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            curl --fail --silent http://localhost:8000/robots.txt >/dev/null && break
+            sleep 1
+          done
+          yarn smoke
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
-      - uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Deploy infrastructure
-        working-directory: terraform
+          terraform_wrapper: false
+      - name: Validate both Terraform stacks without credentials or state access
         run: |
-          terraform init -backend-config config/prod
-          terraform plan -var-file=vars/prod.tfvars -out=.tfplan
-          terraform apply -auto-approve .tfplan
+          terraform fmt -check -recursive terraform
+          terraform -chdir=terraform init -backend=false -input=false
+          terraform -chdir=terraform validate
+          terraform -chdir=terraform/runtime init -backend=false -input=false
+          terraform -chdir=terraform/runtime validate
+      - uses: actions/upload-artifact@v7
+        if: github.event_name != 'pull_request'
+        with:
+          name: website-${{ github.sha }}
+          path: |
+            .deploy/function.zip
+            .deploy/assets.tar.gz
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
 
-  deployStaticWebsite:
-    needs: deployInf
+  aws:
+    needs: validate
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.mode == 'runtime') ||
+      (github.ref == 'refs/heads/master' &&
+        ((github.event_name == 'workflow_dispatch' && inputs.mode == 'production') ||
+         (github.event_name == 'push' && vars.AWS_DEPLOY_ENABLED == 'true')))
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 60
+    environment: production
+    concurrency:
+      group: speakofthe-aws-production
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: eu-central-1
+      TF_IN_AUTOMATION: 'true'
+      TF_VAR_contact_email: ${{ secrets.CONTACT_EMAIL }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - uses: aws-actions/configure-aws-credentials@v1
+          package-manager-cache: false
+      - uses: actions/download-artifact@v8
+        with:
+          name: website-${{ github.sha }}
+          path: .deploy
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: Authenticate with the configured OIDC role
+        if: vars.AWS_DEPLOY_ROLE_ARN != ''
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+          allowed-account-ids: '252240171704'
+      - name: Authenticate with the existing deployment credentials
+        if: vars.AWS_DEPLOY_ROLE_ARN == ''
+        uses: aws-actions/configure-aws-credentials@v6.3.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - run: yarn install
-      - run: yarn build
-      - run: aws s3 sync build s3://speakofthe.com-root
+          aws-region: ${{ env.AWS_REGION }}
+          allowed-account-ids: '252240171704'
+      - name: Plan and prepare candidate runtime
+        run: |
+          test -n "$TF_VAR_contact_email" || { echo 'Configure the CONTACT_EMAIL environment secret first.'; exit 1; }
+          terraform -chdir=terraform/runtime init -backend-config=config/prod -input=false
+          terraform -chdir=terraform/runtime plan -input=false -out=candidate.tfplan
+          terraform -chdir=terraform/runtime show -json candidate.tfplan > .deploy/runtime.tfplan.json
+          node scripts/check-terraform-plan.mjs .deploy/runtime.tfplan.json runtime
+          terraform -chdir=terraform/runtime apply -input=false candidate.tfplan
+      - name: Test candidate through API Gateway before promotion
+        run: |
+          export SMOKE_BASE_URL="$(terraform -chdir=terraform/runtime output -raw preview_endpoint)"
+          export SMOKE_ORIGIN="$NEXT_PUBLIC_SITE_URL"
+          export SMOKE_CANONICAL="$NEXT_PUBLIC_SITE_URL"
+          for attempt in {1..20}; do
+            curl --fail --silent "$SMOKE_BASE_URL/robots.txt" >/dev/null && break
+            sleep 3
+          done
+          node scripts/smoke.mjs
+          printf 'Candidate verified: %s\n' "$SMOKE_BASE_URL" >> "$GITHUB_STEP_SUMMARY"
+      - name: Promote the tested candidate and cut over the existing distribution
+        if: inputs.mode == 'production' || github.event_name == 'push'
+        run: bash scripts/promote.sh
+      - name: Preserve recovery information if promotion fails
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: recovery-${{ github.run_id }}
+          path: |
+            .deploy/edge-before.json
+            .deploy/edge-rollback.json
+            .deploy/release.json
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
