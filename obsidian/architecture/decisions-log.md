@@ -242,8 +242,9 @@ the saved alias version and CloudFront configuration, checking propagation and
 invalidation. The guarded edge plan allows only an in-place root CloudFront update. HTML/RSC/API traffic bypasses
 caching; existing S3 serves static bundles/media without deleting older assets.
 
-Pin Yarn 1.22.22 and CI Terraform 1.13.5. Gate automatic deployment on master with
-`AWS_DEPLOY_ENABLED=true`, retaining explicit runtime/production dispatch and a
+Pin Yarn 1.22.22 and CI Terraform 1.13.5. Preserve automatic deployment after
+validation on every direct master push; no PR or deployment variable is required.
+Branch/PR runs validate only. Retain manual runtime/production dispatch and the
 GitHub production environment. Use the owner's existing GitHub AWS credential
 secrets; OIDC is optional. No AWS access preflight or credential inspection is
 part of local preparation. Preserve a pre-upgrade Terraform 0.14 state backup;
@@ -263,8 +264,9 @@ app dependency change. Delivery now needs reviewed AWS permissions and state,
 Linux packaging and candidate/public smoke checks. Plan guards and rollback are
 safeguards, not evidence that the live account is ready. Local tests, lint/build
 and offline infrastructure/workflow validation pass; AWS deployment and its real
-plan remain unverified. [[aws-deployment]] catalogs scripts, recovery evidence
-and the current validation status.
+plan remain unverified. Linux validation CI also passes packaging and standalone
+smoke; its AWS job was skipped. [[aws-deployment]] catalogs scripts, recovery
+evidence and the current validation status.
 
 ## Related
 

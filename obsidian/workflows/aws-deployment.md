@@ -61,20 +61,22 @@ operation has been performed during this local preparation.
 ## Candidate first, then production
 
 `.github/workflows/deploy.yml` validates pull requests and pushes to `master` or
-`codex/**`. Automatic AWS promotion occurs only for a push to **master** when
-repository variable `AWS_DEPLOY_ENABLED` is exactly `true`. Leave it unset while
-preparing the migration. Manual dispatch offers `validate`, `runtime` and
-`production`; production dispatch is restricted to master.
+`codex/**`. Every push to **master** automatically deploys after validation and
+candidate smoke checks pass, preserving the existing direct-master release flow.
+A pull request is not required. `codex/**` pushes and pull requests validate only.
+Manual dispatch still offers `validate`, `runtime` and `production`; production
+dispatch is restricted to master. No AWS access preflight is part of preparation.
 
 1. Run validation on the replacement branch: lint, deployment tests, Next build,
    Linux ZIP packaging, standalone smoke and backend-disabled validation of both
    Terraform stacks. Preserve the state backup when carrying out the upgrade.
-2. Dispatch **runtime** on the reviewed branch. This creates/updates the candidate
-   runtime without changing the public distribution. The workflow guards and
+2. Optionally dispatch **runtime** on a branch to test a candidate separately. This
+   updates the runtime without changing the public distribution. The workflow guards and
    applies the runtime plan, then tests its preview HTTP API using the canonical
    Origin header. Verify pages, assets, crawler routing and contact reveal.
-3. After candidate review, merge to **master** and dispatch **production** (or
-   deliberately enable automatic deployment). A fresh candidate must pass again.
+3. Commit and push directly to **master** to release; no PR or deployment variable
+   is required. Validation and a fresh candidate smoke must pass before promotion.
+   Manual **production** dispatch on master remains available.
    The edge plan guard permits only an in-place update of
    `aws_cloudfront_distribution.website_cdn_root`; unexpected resource changes,
    replacements or deletion block promotion. Inspect the actual authorized plan;

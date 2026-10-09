@@ -23,7 +23,9 @@ This is a human-curated log — not a mirror of `git log`.
 - Added Linux Lambda Web Adapter ZIP packaging, separate runtime Terraform
   state/provider, candidate/live HTTP APIs and guarded CloudFront promotion.
   Existing DNS, buckets and certificate remain; static sync uses no `--delete`.
-  CI deployment requires explicit dispatch or master plus `AWS_DEPLOY_ENABLED`.
+  Every direct master push automatically deploys after validation/candidate smoke;
+  branch/PR runs validate only. Manual runtime/production dispatch remains; no PR
+  or AWS access preflight is required.
 - Removed the committed contact literal: runtime `CONTACT_EMAIL` is validated,
   missing/blank returns 503, and canonical-origin checks work behind internal AWS
   origins. Private env files and deployment/state artifacts are ignored and kept
@@ -37,7 +39,9 @@ This is a human-curated log — not a mirror of `git log`.
 - Validation: 12 deployment tests, lint/build, both backend-disabled Terraform
   stacks, actionlint and Bash syntax pass. The roughly 22 MiB staged standalone
   passes full HTTP smoke, including RSC, crawler routing, byte ranges and protected
-  reveal. No commit, push, AWS plan or deployment was performed.
+  reveal. GitHub Actions run `37914370830` also passed Linux packaging and
+  standalone smoke; the AWS job was skipped on the validation branch. No AWS
+  access preflight, live plan or deployment was performed.
 
 ## 2026-10-09 — right-facing hero strand bow
 
