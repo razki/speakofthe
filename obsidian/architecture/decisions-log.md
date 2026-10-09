@@ -225,7 +225,7 @@ new performance measurements.
 
 ## ADR-0018 — Next runtime migration while retaining the AWS edge
 
-- **Status:** Accepted implementation; AWS deployment pending
+- **Status:** Deployed successfully on 2026-10-09; GitHub run 37915884578
 - **Date:** 2026-10-09
 
 **Context.** The owner wants the completed Cortex-derived site in the existing
@@ -263,8 +263,10 @@ production secret and also resides in sensitive Terraform state, never source.
 app dependency change. Delivery now needs reviewed AWS permissions and state,
 Linux packaging and candidate/public smoke checks. Plan guards and rollback are
 safeguards, not evidence that the live account is ready. Local tests, lint/build
-and offline infrastructure/workflow validation pass; AWS deployment and its real
-plan remain unverified. Linux validation CI also passes packaging and standalone
+and offline infrastructure/workflow validation pass. Production run 37915884578
+subsequently passed candidate/public smoke and applied only the intended
+CloudFront update; existing bucket encryption was declared explicitly to resolve
+the legacy provider drift without weakening the guard. Linux validation CI also passes packaging and standalone
 smoke; its AWS job was skipped. [[aws-deployment]] catalogs scripts, recovery
 evidence and the current validation status.
 

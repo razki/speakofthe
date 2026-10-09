@@ -21,7 +21,7 @@ yarn build
 The app requires a server for its API and crawler routing. AWS packaging uses
 Next standalone output, Lambda Web Adapter and the existing CloudFront site.
 See the [AWS deployment runbook](obsidian/workflows/aws-deployment.md) for setup,
-candidate testing, cutover and rollback. Deployment has not been performed yet.
+candidate testing, cutover and rollback. The replacement is live at https://speakofthe.com/.
 
 The [Obsidian vault](obsidian/README.md) is the project documentation; read
 [AGENTS.md](AGENTS.md) before changing the application.

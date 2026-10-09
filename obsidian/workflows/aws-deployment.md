@@ -5,13 +5,17 @@ updated: 2026-10-09
 
 # AWS deployment
 
-The replacement is committed to master. After the owner updated GitHub's AWS
-credentials, run 37914707942 attempt 2 created the runtime and passed the preview
-smoke tests. The edge guard stopped promotion because the legacy bucket config
-omitted existing AES256 encryption. That config now declares the existing
-settings explicitly; the guard remains unchanged. Public cutover awaits a
-successful deployment. Credentials stay in GitHub; no local access preflight is
-part of this workflow.
+The replacement is live at https://speakofthe.com/. GitHub Actions run
+[37915884578](https://github.com/razki/speakofthe/actions/runs/37915884578)
+successfully deployed master commit `f7cc119` on 2026-10-09. The edge plan
+contained only the root CloudFront update: zero additions, one change and zero
+destructions, with no S3 bucket mutations. Candidate and public-site smoke tests
+passed. Credentials remain in GitHub; no local access preflight is required.
+
+The prior retry had created the runtime and passed its preview tests, but the
+edge guard blocked removal of existing AES256 encryption from the three legacy
+buckets. Explicitly declaring that encryption resolved the drift while preserving
+the guard unchanged.
 
 ## Runtime and existing infrastructure
 
@@ -126,7 +130,7 @@ Terraform formatting/backend-disabled validation of both stacks, actionlint
 HTTP smoke on port 3004 passed, including RSC content type, pages/canonicals,
 robot routing, video 206 byte ranges, worker no-store and contact 400/403/405
 behavior; the revealed address was absent from initial HTML. These are local
-results. The subsequent AWS candidate smoke also passed; the production edge guard blocked encryption drift before cutover. Branch validation does not access AWS.
+results. Production run 37915884578 subsequently passed candidate and public-site smoke checks, including protected contact reveal. Live browser navigation home to Careers and back worked without replaying the loader, the requested 2021 introduction was present, and browser warnings/errors were empty. Branch validation does not access AWS.
 
 The packaging follows the [official Lambda Web Adapter Next ZIP example](https://github.com/aws/aws-lambda-web-adapter/tree/main/examples/nextjs-zip)
 and [Next standalone output guidance](https://nextjs.org/docs/app/api-reference/config/next-config-js/output).

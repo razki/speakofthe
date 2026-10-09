@@ -19,8 +19,11 @@ This is a human-curated log — not a mirror of `git log`.
   Kept the edge plan guard unchanged: only the root CloudFront distribution may
   update in place; bucket mutations, replacements and deletions remain blocked.
 - Validation: Terraform format/validate, yarn lint and all 12 deployment tests
-  passed before the automatic deployment retry. The expected live edge plan is
-  one CloudFront update and no S3 bucket mutations.
+  passed before the automatic deployment retry. Run 37915884578 then succeeded:
+  the edge plan applied one CloudFront update and no S3 bucket mutations.
+  Candidate/public smoke tests passed; the replacement is live on speakofthe.com.
+  Browser verification confirmed the updated introduction, Careers navigation,
+  no loader on return home, and no console warnings/errors.
 
 ## 2026-10-09 - About introduction correction
 

@@ -12,7 +12,7 @@ humans and AI agents (Claude Code, Cursor).
 > [!info] What is this project?
 > `speakofthe` is a Next.js 16 consultancy site derived from Textura's Cortex
 > template. DOM motion is spring-based. API routes run server-side; the AWS
-> migration is prepared but has not been deployed. See [[aws-deployment]].
+> runtime is deployed behind the existing CloudFront site. See [[aws-deployment]].
 
 ## 🗺️ Map of Content
 
