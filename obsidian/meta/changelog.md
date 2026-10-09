@@ -8,6 +8,20 @@ updated: 2026-10-09
 Chronological log of notable changes to the project. Newest first.
 This is a human-curated log — not a mirror of `git log`.
 
+## 2026-10-09 - Preserve existing S3 encryption during cutover
+
+- The production retry authenticated successfully, created the Next runtime and
+  passed the preview smoke tests. Its edge plan was blocked before promotion:
+  legacy AWS provider 3.35.0 proposed removing the existing AES256 encryption
+  blocks from the root, redirect and log buckets because the old configuration
+  omitted them.
+- Declared the existing default encryption explicitly on those three resources.
+  Kept the edge plan guard unchanged: only the root CloudFront distribution may
+  update in place; bucket mutations, replacements and deletions remain blocked.
+- Validation: Terraform format/validate, yarn lint and all 12 deployment tests
+  passed before the automatic deployment retry. The expected live edge plan is
+  one CloudFront update and no S3 bucket mutations.
+
 ## 2026-10-09 - About introduction correction
 
 - Updated the introduction to the owner's exact wording: Established in 2021,

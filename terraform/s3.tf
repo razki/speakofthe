@@ -5,6 +5,15 @@ resource "aws_s3_bucket" "website_logs" {
 
   force_destroy = true
 
+  # Preserve the AES256 default encryption already present on this bucket.
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
+
   tags = merge(local.tags, {
     Changed = formatdate("YYYY-MM-DD hh:mm ZZZ", timestamp())
   })
@@ -28,6 +37,15 @@ resource "aws_s3_bucket" "website_root" {
   acl    = "public-read"
 
   force_destroy = true
+
+  # Preserve the AES256 default encryption already present on this bucket.
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 
   logging {
     target_bucket = aws_s3_bucket.website_logs.bucket
@@ -53,6 +71,15 @@ resource "aws_s3_bucket" "website_redirect" {
   bucket        = "${var.domain_name}-redirect"
   acl           = "public-read"
   force_destroy = true
+
+  # Preserve the AES256 default encryption already present on this bucket.
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = "AES256"
+      }
+    }
+  }
 
   logging {
     target_bucket = aws_s3_bucket.website_logs.bucket
